@@ -12,52 +12,55 @@ const resolvers = {
         me: async (parent, args, context) => {
             if (context.user) {
                 const userData = await User.findOne({ _id: context.user._id })
-                    .select('-__v -password')
+                    // .select('-__v -password')
                 return userData;
             }
-            throw new AuthenticationError('Not logged in');
+            throw new AuthenticationError('You need to be logged in');
         }
     },
     Mutation: {
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
             if (!user) {
-                throw new AuthenticationError('Incorrect credentials')
+                throw new AuthenticationError('It looks like your username or passowrd are incorrect.')
             }
             const correctPw = await user.isCorrectPassword(password);
             if (!correctPw) {
-                throw new AuthenticationError('Incorrect credentials')
+                throw new AuthenticationError('It looks like your username or passowrd are incorrect.')
             }
             const token = signToken(user);
             return { token, user };
         },
-        addUser: async (parent, args) => {
-            const user = await User.create(args);
+        addUser: async (parent, { name, email, password }) => {
+            const user = await User.create({ name, email, password });
             const token = signToken(user)
             return { token, user };
         },
         saveBook: async (parent, { book }, context) => {
+        // If context has a `user` property, that means the user saving book has a valid token and is logged in
             if (context.user) {
-                const updatedUser = await User.findOneAndUpdate(
+                return User.findOneAndUpdate(
                     { _id: context.user._id },
                     { $addToSet: { savedBooks: book } },
                     { new: true }
                 )
-                return updatedUser;
             }
+        // If user attempts to save book and isn't logged in, throw an error
             throw new AuthenticationError('You need to be logged in!')
         },
+
+        // Logged in user can only remove a book from their own profile
         removeBook: async (parent, { bookId }, context) => {
             if (context.user) {
-                const updatedUser = await User.findOneAndUpdate(
+                return User.findOneAndUpdate(
                     { _id: context.user._id },
                     { $pull: { savedBooks: { bookId: bookId } } },
                     { new: true }
-                )
-                return updatedUser;
+                );
             }
-        }
-    }
-}
+            throw new AuthenticationError('Please log in.');
+        },
+    },
+};
 
 module.exports = resolvers;
