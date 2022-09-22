@@ -10,8 +10,6 @@ const LoginForm = () => {
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [login, { error }] = useMutation(LOGIN_USER);
-
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -23,6 +21,7 @@ const LoginForm = () => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      console.log(error);
     }
     try {
       const { data } = await login({
