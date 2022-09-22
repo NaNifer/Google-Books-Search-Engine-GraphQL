@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 
 // login: Accepts an email and password as parameters; returns an Auth type.
@@ -9,6 +9,7 @@ export const LOGIN_USER = gql`
             user {
                 _id
                 username
+                email
             }
         }
     }
@@ -22,6 +23,7 @@ export const ADD_USER = gql`
             user {
                 _id
                 username
+                email
             }
         }
     }
@@ -29,11 +31,10 @@ export const ADD_USER = gql`
 
 // saveBook: Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a User type.
 export const SAVE_BOOK = gql`
-    mutation saveBook($book: SavedBookInput!) {
-        saveBook(book: $book) {
+    mutation saveBook($authors: [String], $description: String!, $title: String!, $bookId: String, $image: String, $link: String) {
+        saveBook(authors: $authors, description: $description, title: $title, bookId: $bookId, image: $image, link: $link) {
             username
             email
-            bookCount
             savedBooks {
                 authors
                 description
@@ -50,9 +51,6 @@ export const SAVE_BOOK = gql`
 export const REMOVE_BOOK = gql`
     mutation removeBook($bookId: String!) {
         removeBook(bookId: $bookId) {
-            username
-            email
-            bookCount
             savedBooks {
                 authors
                 description
