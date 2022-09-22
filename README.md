@@ -36,8 +36,8 @@ Google Books Search Engine in GraphQL is a fully functioning Google Books API se
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- GitHub Repo: [repo](https://github.com/NaNifer/Google-Books-Search-Engine-GraphQL)
+- Live Site on Heroku: [Live site URL here](https://your-live-site-url.com)
 
 ### Screenshot
 

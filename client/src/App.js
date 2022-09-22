@@ -1,25 +1,21 @@
-import React from 'react';
 import {
-  BrowserRouter as
-    Router,
-  Route,
-  Routes
-}
-  from 'react-router-dom';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
+  ApolloClient, ApolloProvider,
+  createHttpLink, InMemoryCache
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from 'react-router-dom';
 
-import SearchBooks from './pages/SearchBooks';
-import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
+import SavedBooks from './pages/SavedBooks';
+import SearchBooks from './pages/SearchBooks';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'http://localhost:3001/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
