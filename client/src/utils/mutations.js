@@ -7,7 +7,6 @@ export const LOGIN_USER = gql`
         login(email: $email, password: $password) {
             token
             user {
-                _id
                 username
                 email
             }
@@ -17,15 +16,15 @@ export const LOGIN_USER = gql`
 
 // addUser: Accepts a username, email, and password as parameters; returns an Auth type.
 export const ADD_USER = gql`
-    mutation addUser($username: String!, $email: String!, $password: String!) {
-        addUser(username: $username, email: $email, password: $password) {
-            token
-            user {
-                _id
-                username
-            }
-        }
+  mutation addUser($username: String!, $email: String!, $password: String!) {
+    addUser(username: $username, email: $email, password: $password) {
+      token
+      user {
+        username,
+        email
+      }
     }
+  }
 `;
 
 // saveBook: Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a User type.
