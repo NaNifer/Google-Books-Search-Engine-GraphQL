@@ -34,6 +34,8 @@ Google Books Search Engine in GraphQL is a fully functioning Google Books API se
 2. The user can save books by clicking "Save This Book!" under each search result.
 3. A user can view their saved books on a separate page.
 
+![Animation shows "earth" then "mars" typed into a search box and books about those topics appearing as results.](./assets/Google%20Book%20Search.gif)
+
 ### Links
 
 - GitHub Repo: [repo](https://github.com/NaNifer/Google-Books-Search-Engine-GraphQL)
