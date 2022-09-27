@@ -15,8 +15,8 @@ import SavedBooks from './pages/SavedBooks';
 import SearchBooks from './pages/SearchBooks';
 
 const httpLink = createHttpLink({
-  // uri: process.env.GRAPHQL_URI  || 'http://localhost:3001/graphql',
-  uri: '/graphql',
+  uri: process.env.REACT_APP_GRAPHQL_URI  || 'http://localhost:3001/graphql',
+  // uri: '/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
